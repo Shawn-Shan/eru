@@ -11,6 +11,7 @@ class GRU(Layer):
             inshape = [None, insize]
             outshape = [None, hidden_size]
         else:
+            inshape = [insize]
             outshape = [hidden_size]
         
         super(GRU, self).__init__(inshape, outshape, name)
