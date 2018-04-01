@@ -19,4 +19,10 @@ class Sigmoid(Layer):
 class Activation(Layer):
     def __init__(self, non_linearity_type, name=None):
         super(Activation, self).__init__([None], [None], name)
-        self.kernel = getattr(F, non_linearity_type)
+        if non_linearity_type == "softmax":
+            self.kernel = nn.LogSoftmax(dim=2)
+        elif non_linearity_type == "sigmoid":
+            self.kernel = nn.LogSigmoid()
+        else:
+            self.kernel = getattr(F, non_linearity_type)
+        

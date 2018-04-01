@@ -96,7 +96,7 @@ class MutiClassSequensial_Corpus(object):
 
 
 class MutiClassSequensial_Loader(object):
-    def __init__(self, corpus, batch_size, evaluation=False, seq_len=35, output_categorical=True):
+    def __init__(self, corpus, batch_size, evaluation=False, seq_len=35, output_categorical=True, ):
         self.batch_size = batch_size
         self.evaluation = evaluation
         self.seq_len = seq_len

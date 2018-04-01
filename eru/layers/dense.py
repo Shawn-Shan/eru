@@ -4,9 +4,9 @@ import torch.nn as nn
 from torch.nn import init
 from .base import Layer
 
-class Linear(Layer):
+class Dense(Layer):
     def __init__(self, insize, outsize, name=None):
-        super(Linear, self).__init__([insize], [outsize], name)
+        super(Dense, self).__init__([insize], [outsize], name)
         self.out_shape = outsize
         self.kernel = nn.Linear(insize, self.out_shape)
         self.in_shape = insize

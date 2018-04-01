@@ -5,13 +5,13 @@ from .utils import batchify
 from torch.autograd import Variable
 
 
-def get_next_word_batch(source, i, seq_len=35, evaluation=False, return_sequence=True):
+def get_next_word_batch(source, i, seq_len=35, evaluation=False, return_sequence=False):
     seq_len = min(seq_len, len(source) - 1 - i)
     data = Variable(source[i:i + seq_len], volatile=evaluation).cuda()
     if return_sequence:
         target = Variable(source[i + 1:i + 1 + seq_len].view(-1)).cuda()
     else:
-        target = Variable(source[i + seq_len].view(-1)).cuda()
+        target = Variable(source[i + seq_len]).cuda()
 
     return data, target
 
@@ -107,3 +107,4 @@ class Onehot_Encoder(object):
 
     def forward(self, input):
         return self.encode_batch(input)
+

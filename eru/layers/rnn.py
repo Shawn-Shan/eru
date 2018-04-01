@@ -5,7 +5,7 @@ from torch.autograd import Variable
 from .base import *
 
 class GRU(Layer):
-    def __init__(self, insize, hidden_size, name=None, nlayers=1, recurrent_dropout=0.1, return_sequence=True, extract_hidden=False):
+    def __init__(self, insize, hidden_size, name=None, nlayers=1, recurrent_dropout=0.1, return_sequence=False, extract_hidden=False):
         self.insize = insize
         if return_sequence:
             inshape = [None, insize]

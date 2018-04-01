@@ -1,5 +1,10 @@
 from __future__ import absolute_import
-
+from torch import nn
+from ..metrics import *
+from ..utils import *
+import time
+from ..train import *
+import torch
 
 class Model(nn.Module):
     def __init__(self, input_layer, output_layer):
@@ -14,7 +19,7 @@ class Model(nn.Module):
     def forward_layer(self, input, cur_layer):
         output = cur_layer.forward(input)
         if not cur_layer.out_bound_layers:
-            return output
+            return output.view(self.batch_size, -1)
         
         for layer in cur_layer.out_bound_layers:
             return self.forward_layer(output, layer)
@@ -24,15 +29,15 @@ class Model(nn.Module):
     
     def traverse_layers(self, cur_layer):
         for layer in cur_layer.out_bound_layers:
+            layer.cuda()
             self.layers.append(layer)
             self.params += list(layer.parameters())
             self.traverse_layers(layer)
             
     def change_batch_size(self, bsz):
-        self.batch_size = batch_size
+        self.batch_size = bsz
 
         for layer in self.layers:
-            layer.cuda()
             layer.update_batch_size(bsz)
             
             
@@ -92,6 +97,19 @@ class Model(nn.Module):
         self.data_loader = data_loader
         self.data_generator = data_loader.generate()
         self.train_run(epochs=epochs)
+        
+    def fit(self, x, y, batch_size, epochs):
+        self.change_batch_size(batch_size)
+
+        if train_length is None:
+            self.training_length = len(data_loader)
+        else:
+            self.training_length = train_length
+
+        self.data_loader = data_loader
+        self.data_generator = data_loader.generate()
+        self.train_run(epochs=epochs)
+        
 
     def train_run(self, epochs=1):
         try:
