@@ -27,5 +27,5 @@ Before installing Eru, please install Pytorch following the instruction on http:
 - **Install Eru from PyPI (recommended):**
 
 ```sh
-sudo pip3 install Eru
+sudo pip3 install eru
 ```
