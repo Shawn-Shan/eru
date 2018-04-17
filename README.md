@@ -6,7 +6,7 @@
 
 High Level Framework for PyTorch
 
-Currently the Framework is under active developing and the first version is ready. 
+Currently the Framework is under active developing and the first version will be ready before summer 2018. 
 
 Eru is designed to help with Deep Learning researchers to try out advanced models efficiently, so we recommend users to have some understanding of deep learning before using. For this reason, Eru is only implement on GPUs, but we will build CPU configuration soon. 
 
