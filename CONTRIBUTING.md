@@ -42,3 +42,6 @@ Given we are still working on the backend code, We suggest not add to many examp
 4. IMBD/Yelp sentiment classification with Conv1D
 5. Language modeling on PTB dataset
 6. Sequence to sequence translation
+
+## Pull Requests
+Private message me (Shawn Shan) directly on Slack for things you want to work on, and we will discuss. 
