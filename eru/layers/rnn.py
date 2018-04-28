@@ -1,11 +1,23 @@
 from __future__ import absolute_import
-
-import torch.nn as nn
 from torch.autograd import Variable
 from .base import *
 
+
 class GRU(Layer):
-    def __init__(self, insize, hidden_size, name=None, nlayers=1, recurrent_dropout=0.1, return_sequence=False, extract_hidden=False):
+    """GRU layer"""
+
+    def __init__(self, insize, hidden_size, name=None, nlayers=1, recurrent_dropout=0.1, return_sequence=False,
+                 extract_hidden=False):
+        """
+        Initialize current layer
+        :param insize: input size of current layer
+        :param hidden_size: output/hidden size of current layer
+        :param name: the given name of current layer
+        :param nlayers: number of recurrent layers
+        :param recurrent_dropout: recurrent dropout rate
+        :param return_sequence: whether return the sequence output or only last time step output
+        :param extract_hidden: whether return final hidden states
+        """
         self.insize = insize
         if return_sequence:
             inshape = [None, insize]
@@ -13,7 +25,7 @@ class GRU(Layer):
         else:
             inshape = [insize]
             outshape = [hidden_size]
-        
+
         super(GRU, self).__init__(inshape, outshape, name)
         self.hidden_size = hidden_size
         self.extract_hidden = extract_hidden
@@ -37,5 +49,9 @@ class GRU(Layer):
             return output.view(self.batch_size, -1, self.hidden_size)
 
     def init_hidden(self):
+        """
+        Initialize the hidden states of the network
+        """
         weight = next(self.parameters()).data
         self.hidden = Variable(weight.new(self.nlayers, self.batch_size, self.hidden_size).zero_().cuda())
+        return self.hidden

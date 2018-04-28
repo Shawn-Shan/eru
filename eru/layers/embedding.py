@@ -6,14 +6,26 @@ import numpy as np
 import torch
 from .base import Layer
 
+
 class Embedding(Layer):
+    """Embedding Layer"""
+
     def __init__(self, insize, outsize, name=None, pretrain=None, dictionary=None):
+        """
+        Initialize current layer
+
+        :param insize: input size of current layer
+        :param outsize: output size of current layer
+        :param name: the given name of current layer
+        :param pretrain: the path to pretrain embedding if use
+        :param dictionary: the dictionary of words need to retrieved from pretrained embedding
+        """
         super(Embedding, self).__init__([insize], [insize, outsize], name)
         self.kernel = nn.Embedding(insize, outsize)
         init.xavier_uniform(self.kernel.weight)
 
         if pretrain is not None:
-            assert(dictionary is not None)
+            assert (dictionary is not None)
             print("Loading pretrained embedding from {}".format(pretrain))
             embeddings_index = {}
             with open(pretrain) as f:
@@ -23,7 +35,7 @@ class Embedding(Layer):
                     coefs = np.asarray(values[1:], dtype='float32')
                     embeddings_index[word] = coefs
             emb_layer = torch.cuda.FloatTensor(insize, outsize)
-            
+
             c = 0
             for w in dictionary.word2idx.keys():
                 idx = dictionary.word2idx[w]

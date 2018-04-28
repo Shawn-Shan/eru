@@ -1,8 +1,9 @@
 import numpy as np
+
+
 # Borrow from keras
 def pad_sequences(sequences, maxlen=None, dtype='int32',
                   padding="pre", truncating='pre', value=0.):
-    
     if not hasattr(sequences, '__len__'):
         raise ValueError('`sequences` must be iterable.')
     lengths = []
@@ -49,4 +50,4 @@ def pad_sequences(sequences, maxlen=None, dtype='int32',
             x[idx, -len(trunc):] = trunc
         else:
             raise ValueError('Padding type "%s" not understood' % padding)
-    return x    
+    return x

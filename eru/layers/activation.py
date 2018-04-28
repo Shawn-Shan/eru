@@ -4,25 +4,26 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .base import Layer
 
+
 class Softmax(Layer):
+    """Softmax Layer"""
     def __init__(self, insize, outsize):
-        super(Softmax, self).__init__(insize, outsize)
+        super(Softmax, self).__init__(insize, outsize, name=None)
         self.kernel = nn.LogSoftmax(dim=2)
 
 
 class Sigmoid(Layer):
+    """Sigmoid Layer"""
     def __init__(self, insize, outsize):
-        super(Sigmoid, self).__init__(insize, outsize)
-        self.kernel = nn.LogSigmoid(dim=2)
+        super(Sigmoid, self).__init__(insize, outsize, name=None)
+        self.kernel = nn.LogSigmoid()
 
-        
+
 class Activation(Layer):
+    """Other Activation Layer"""
     def __init__(self, non_linearity_type, name=None):
         super(Activation, self).__init__([None], [None], name)
         if non_linearity_type == "softmax":
             self.kernel = nn.LogSoftmax(dim=2)
-        elif non_linearity_type == "sigmoid":
-            self.kernel = nn.LogSigmoid()
         else:
             self.kernel = getattr(F, non_linearity_type)
-        
