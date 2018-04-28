@@ -24,6 +24,9 @@ Since we are still testing the general framework and might change the implementa
 #### Add optimizers and loss functions
 We only implemented Adam optimizer and cross-entropy loss functions. Despite those being the popular ones, we need to add other optimizers and loss functions. 
 
+#### Tidy up model/layer code
+The current Model API and layer code are developed without much checking and handling exceptions. You can help to tidy up some of those code with decorators and add exceptions. 
+
 #### Upgrade to Pytorch 0.4.0
 There are some nice updates on Pytorch side, and we need to upgrade as well. 
 
